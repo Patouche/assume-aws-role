@@ -4,6 +4,7 @@ var AWS = require("aws-sdk");
 var fs = require("fs-extra")
 var path = require("path");
 var spawn = require("child_process").spawn;
+var ini = require('ini');
 
 var command = process.argv[2];
 var home = process.env.HOME ||
@@ -118,7 +119,16 @@ if (role.SerialNumber && !token) {
   process.exit(1);
 }
 
-var STS = new AWS.STS();
+var awsCredentials = path.join(home, ".aws", "credentials");
+var awsConfig = ini.parse(fs.readFileSync(awsCredentials, 'utf-8'));
+var profile = process.env.AWS_DEFAULT_PROFILE || 'default';
+
+var STS = new AWS.STS({
+  credentials: {
+    accessKeyId: awsConfig[profile]['aws_access_key_id'],
+    secretAccessKey: awsConfig[profile]['aws_secret_access_key']
+  }
+});
 STS.assumeRole({
   RoleArn: role.RoleArn,
   RoleSessionName: "assume-aws-role-cli",

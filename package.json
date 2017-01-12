@@ -19,11 +19,13 @@
   "contributors": [
     "Benson Wong <mostlygeek+git@gmail.com>",
     "Eric Rutherford <eric@homepage.me>",
-    "Frank Pavageau <fpavageau@ekino.com>"
+    "Frank Pavageau <fpavageau@ekino.com>",
+    "Patrick Allain <patrick.allain@soat.fr>"
   ],
   "license": "Apache-2.0",
   "dependencies": {
     "aws-sdk": "^2.4.3",
-    "fs-extra": "^0.30.0"
+    "fs-extra": "^0.30.0",
+    "ini": "^1.3.4"
   }
 }
